@@ -1,5 +1,4 @@
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
@@ -8,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 
 public class Order implements Serializable {
 
@@ -44,7 +42,7 @@ public class Order implements Serializable {
     }
 
 
-    public void addPosition(Position position) throws OrderListIsFullExeception {
+    public void addPosition(Position position) throws OrderListIsFullException {
         for(int i = 0; i < currentOrderLength; i ++){
             if(position.getItemName().equals(orderList[i].getItemName())) {
                 orderList[i].setItemQuantity(orderList[i].getItemQuantity() + position.getItemQuantity());
@@ -52,7 +50,7 @@ public class Order implements Serializable {
             }
 
         }  if(isFull()) {
-            throw new OrderListIsFullExeception();
+            throw new OrderListIsFullException();
         } else {
             orderList[currentOrderLength] = position;
         currentOrderLength++;
@@ -60,8 +58,8 @@ public class Order implements Serializable {
 
     }
 
-    public void removePosition(int i) throws OrderListIsEmptyExeception{
-        if(currentOrderLength == 0) throw new OrderListIsEmptyExeception();
+    public void removePosition(int i) throws OrderListIsEmptyException {
+        if(currentOrderLength == 0) throw new OrderListIsEmptyException();
 
         for(int j = i - 1; j < currentOrderLength; j++){
             orderList[j] = orderList[j + 1];
@@ -122,9 +120,9 @@ public class Order implements Serializable {
     }
 
 
-    public double calculateTotalOrderValue() throws OrderListIsEmptyExeception {
+    public double calculateTotalOrderValue() throws OrderListIsEmptyException {
         if (isEmpty()) {
-            throw new OrderListIsEmptyExeception();
+            throw new OrderListIsEmptyException();
         }
         double totalOrderValue = 0;
 
@@ -134,9 +132,9 @@ public class Order implements Serializable {
         return totalOrderValue;
     }
 
-        public double calculateTotalOrderValueWithDiscount() throws OrderListIsEmptyExeception {
+        public double calculateTotalOrderValueWithDiscount() throws OrderListIsEmptyException {
             if (isEmpty()) {
-                throw new OrderListIsEmptyExeception();
+                throw new OrderListIsEmptyException();
             }
             double totalOrderValueWithDiscount = 0;
 
